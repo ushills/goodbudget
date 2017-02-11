@@ -13,12 +13,15 @@ def main():
     # Open the csv file, check the dates are valid,
     # reduce the name and recombine to the newrowslist
     # variable to be written as a new csv file
-    with open('TransHist.csv') as csvfile:
+    # added utf-8-sig to overcome BOM at start of file
+    with open('TransHist.csv', encoding="utf-8-sig") as csvfile:
         transreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         try:
             for row in transreader:
+                print ('Row is', row)
                 # get the date from the row
                 date = checkdate(row)
+                print ('Date is', date)
                 # if the date is greater than the cutoffdate
                 # run the stripname function and add to the
                 # newrowslist
@@ -59,7 +62,7 @@ def checkdate(inputrow):
         d = datetime.date(d)
         return d
     except ValueError:
-        print "Error in checkdate. Value invalid"
+        print ("Error in checkdate. Value invalid")
         pass
 
 
@@ -79,7 +82,7 @@ def writecsv(newrowslist):
     with open('TransHistNew.csv', 'w', newline='') as csvfile:
         transwriter = csv.writer(csvfile, delimiter=',',
                                  quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        transwriter.writerows("Date", "Name", "Amount")
+        transwriter.writerow(["Date", "Name", "Amount"])
         transwriter.writerows(newrowslist)
 
 
