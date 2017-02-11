@@ -3,6 +3,7 @@ from datetime import datetime
 
 DATE_FORMAT = "%d/%m/%Y"
 
+
 def main():
     # get the cut off date for transactions that
     # we want to exclude
@@ -25,11 +26,15 @@ def main():
                     newrowslist.append(stripname(row))
                 else:
                     pass
-        except:
+        except IOError:
+            print ("Erron in main.  Cannot open file")
+        except ValueError:
+            print ("Error in main. Values invalid")
             pass
 
     # now we have the newrowslist, write this to a new csv file
     writecsv(newrowslist)
+
 
 def stripname(inputrow):
     try:
@@ -41,8 +46,9 @@ def stripname(inputrow):
         # recombine to create a new correct row
         newrow = [inputrow[0], name, inputrow[2]]
         return newrow
-    except:
+    except ValueError:
         pass
+
 
 def checkdate(inputrow):
     try:
@@ -52,8 +58,10 @@ def checkdate(inputrow):
         d = datetime.strptime(d, DATE_FORMAT)
         d = datetime.date(d)
         return d
-    except:
+    except ValueError:
+        print "Error in checkdate. Value invalid"
         pass
+
 
 def dateinput():
     d = input('Enter the cut off date for transactions (d/m/YYYY)> ')
@@ -61,15 +69,17 @@ def dateinput():
         d = datetime.strptime(d, DATE_FORMAT)
         d = datetime.date(d)
         return d
-    except:
-        print ('Incorrect format...try again')
+    except ValueError:
+        print ('Error in dateinput. Incorrect format...try again')
+
 
 def writecsv(newrowslist):
     # write the newrowslist to the csv file
     # TransHistNew.csv
     with open('TransHistNew.csv', 'w', newline='') as csvfile:
         transwriter = csv.writer(csvfile, delimiter=',',
-                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                                 quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        transwriter.writerows("Date", "Name", "Amount")
         transwriter.writerows(newrowslist)
 
 
