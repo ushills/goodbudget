@@ -18,10 +18,8 @@ def main():
         transreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         try:
             for row in transreader:
-                print ('Row is', row)
                 # get the date from the row
                 date = checkdate(row)
-                print ('Date is', date)
                 # if the date is greater than the cutoffdate
                 # run the stripname function and add to the
                 # newrowslist
@@ -30,9 +28,9 @@ def main():
                 else:
                     pass
         except IOError:
-            print ("Erron in main.  Cannot open file")
+            print("Erron in main.  Cannot open file")
         except ValueError:
-            print ("Error in main. Values invalid")
+            print("Error in main. Values invalid")
             pass
 
     # now we have the newrowslist, write this to a new csv file
@@ -62,7 +60,7 @@ def checkdate(inputrow):
         d = datetime.date(d)
         return d
     except ValueError:
-        print ("Error in checkdate. Value invalid")
+        print("Error in checkdate. Value invalid")
         pass
 
 
@@ -73,7 +71,7 @@ def dateinput():
         d = datetime.date(d)
         return d
     except ValueError:
-        print ('Error in dateinput. Incorrect format...try again')
+        print('Error in dateinput. Incorrect format...try again')
 
 
 def writecsv(newrowslist):
