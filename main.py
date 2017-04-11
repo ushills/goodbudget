@@ -8,6 +8,7 @@ def main():
     # get the cut off date for transactions that
     # we want to exclude
     cutoffdate = dateinput()
+    print(cutoffdate)
     newrowslist = []
 
     # Open the csv file, check the dates are valid,
@@ -18,10 +19,10 @@ def main():
         transreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         try:
             for row in transreader:
-                print ('Row is', row)
+                #print ('Row is', row)
                 # get the date from the row
                 date = checkdate(row)
-                print ('Date is', date)
+                #print ('Date is', date)
                 # if the date is greater than the cutoffdate
                 # run the stripname function and add to the
                 # newrowslist
@@ -30,7 +31,7 @@ def main():
                 else:
                     pass
         except IOError:
-            print ("Erron in main.  Cannot open file")
+            print ("Error in main.  Cannot open file")
         except ValueError:
             print ("Error in main. Values invalid")
             pass
@@ -68,6 +69,7 @@ def checkdate(inputrow):
 
 def dateinput():
     d = input('Enter the cut off date for transactions (d/m/YYYY)> ')
+    d = str(d)
     try:
         d = datetime.strptime(d, DATE_FORMAT)
         d = datetime.date(d)
