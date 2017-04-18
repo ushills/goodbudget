@@ -19,15 +19,8 @@ def main():
         transreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         try:
             for row in transreader:
-<<<<<<< HEAD
-                #print ('Row is', row)
                 # get the date from the row
                 date = checkdate(row)
-                #print ('Date is', date)
-=======
-                # get the date from the row
-                date = checkdate(row)
->>>>>>> 0bc5df49d97864ff1181ce1dbb70c56e21113a57
                 # if the date is greater than the cutoffdate
                 # run the stripname function and add to the
                 # newrowslist
@@ -36,11 +29,7 @@ def main():
                 else:
                     pass
         except IOError:
-<<<<<<< HEAD
             print ("Error in main.  Cannot open file")
-=======
-            print("Erron in main.  Cannot open file")
->>>>>>> 0bc5df49d97864ff1181ce1dbb70c56e21113a57
         except ValueError:
             print("Error in main. Values invalid")
             pass
